@@ -6,10 +6,19 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from lxml import etree
 from washctrip import wash
 
-def findTrip(url):
+def findTrip(fromCity,toCity,date):
     #url = "http://www.qua.com/flights/PEK-XMN/2016-04-06?from=home"
+    #url = "http://www.qua.com/flights/PEK-XMN/2016-04-06?m=CNY&from=home"
+    url_head = "http://www.qua.com/flights/"
+    url_tail = "?m=CNY&from=home"
+    url = url_head + fromCity +'-'+ toCity +'/'+ date + url_tail
+
     ua_list = [
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.82 Chrome/48.0.2564.82 Safari/537.36"
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.82 Chrome/48.0.2564.82 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36",
+            "Mozilla/5.0 (X11; OpenBSD i386) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1664.3 Safari/537.36"
             ]
 
     dcap = dict(DesiredCapabilities.PHANTOMJS)
@@ -65,6 +74,11 @@ def findTrip(url):
     return detail
 
 if __name__ == '__main__':
-    url = "http://www.qua.com/flights/PEK-XMN/2016-04-06?from=home"
-    date = findTrip(url) 
-    print date[0]
+    fromCity = "PEK" #replace beijing by 'PEK'
+    toCity = "XMN"
+    date = "2016-04-06"  #example 2016-04-06
+    data = findTrip(fromCity, toCity, date) 
+    #construction
+    #print data[0]
+    for each in data:
+        print each
