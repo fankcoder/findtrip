@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from selenium import webdriver
 import time
 from random import choice
@@ -41,20 +42,16 @@ def findTrip(fromCity,toCity,date):
         detail_span = "//div[@class='fl-detail-nav']/ul/li[1]/span[@class='nav-label']"
         f_route_div = "//div[@class='m-fl-info-bd']/div"
 
-        driver.find_element_by_xpath(flight_each+detail_span).click()
+        driver.find_element_by_xpath(flight_each+detail_span).click() # 数据由js来控制,点击后加载数据
         true_page = driver.page_source
         true_html = etree.HTML(true_page)
 
         #test = true_html.xpath(flight_each + "//div[@class='m-fl-info-bd']/div/p[2]//text()") #get airflight and company
         #print test
         company = true_html.xpath(flight_each + f_route_div + '/p[1]//text()') #get airflight and company
-        #company = map(lambda x: x.split(), company)
         flight_time = true_html.xpath(flight_each + f_route_div + '/p[2]//text()')
-        #flight_time = map(lambda x: x.split(), flight_time)
         airports = true_html.xpath(flight_each + f_route_div + '/p[3]//text()')
-        #airports = map(lambda x: x.split(), airports)
         passtime = true_html.xpath(flight_each + f_route_div + '/p[4]//text()')
-        #passtime = map(lambda x : x.split(), passtime)
         price = true_html.xpath(flight_each + "//div[@class='fl-price-box']//em//text()")
 
         company = wash(company)
