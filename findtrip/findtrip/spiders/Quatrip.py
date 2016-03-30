@@ -28,21 +28,33 @@ def findTrip(fromCity,toCity,date):
     dcap["phantomjs.page.settings.userAgent"] = choice(ua_list)
     driver = webdriver.PhantomJS(executable_path=u'./phantomjs',desired_capabilities=dcap)
     #driver = webdriver.Firefox()
+    #driver.maximize_window()
     driver.get(url)
+    driver.implicitly_wait(3)
     time.sleep(5)
 
     origin_page = driver.page_source # .decode('utf-8','ignore')
     origin_html = etree.HTML(origin_page)
     items = origin_html.xpath("//div[@class='fl-detail-nav']/ul/li[1]")
     items = origin_html.xpath("//div[@class='m-fly-item s-oneway']")
+    items = origin_html.xpath("//div[@id='list-box']/div")
+    print len(items)
 
     detail = []
     for index,item in enumerate(items):
         flight_each = "//div[@id='list-box']/div["+str(index+1)+"]"
         detail_span = "//div[@class='fl-detail-nav']/ul/li[1]/span[@class='nav-label']"
+        detail_span = "//div[@class='fl-detail-nav']/ul/li[1]"
         f_route_div = "//div[@class='m-fl-info-bd']/div"
 
-        driver.find_element_by_xpath(flight_each+detail_span).click() # 数据由js来控制,点击后加载数据
+        #driver.find_element_by_xpath(flight_each+detail_span).click() # 数据由js来控制,点击后加载数据
+        #driver.find_element_by_xpath(flight_each+"/div[2]/div[1]/ul/li[1]/span").click() # 数据由js来控制,点击后加载数据
+        print driver.find_element_by_xpath(flight_each+detail_span)
+        element = driver.find_element_by_xpath(flight_each+detail_span)
+        hover = ActionChains(driver).move_to_element_with_offset(element,0,20)
+        hover.perform()
+        element.click()
+
         true_page = driver.page_source
         true_html = etree.HTML(true_page)
 

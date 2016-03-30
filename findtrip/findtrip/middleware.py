@@ -19,14 +19,16 @@ dcap = dict(DesiredCapabilities.PHANTOMJS)
 dcap["phantomjs.page.settings.resourceTimeout"] = 15 
 dcap["phantomjs.page.settings.loadImages"] = False
 dcap["phantomjs.page.settings.userAgent"] = choice(ua_list)
-#driver = webdriver.PhantomJS(executable_path='findtrip/spiders/phantomjs',desired_capabilities=dcap)
+#driver = webdriver.PhantomJS(executable_path='/home/icgoo/pywork/spider/phantomjs',desired_capabilities=dcap)
+driver = webdriver.PhantomJS()
 
-driver = webdriver.Firefox()
+#driver = webdriver.Firefox()
 
 class SeleniumMiddleware(object): 
     def process_request(self, request, spider):
 
         driver.get(request.url)
+        driver.implicitly_wait(3)
         time.sleep(5)
         origin_page = driver.page_source # .decode('utf-8','ignore')
         origin_html = etree.HTML(origin_page)
@@ -41,10 +43,7 @@ class SeleniumMiddleware(object):
         true_page = driver.page_source
         close_driver()
 
-        return HtmlResponse(driver.current_url,
-        body = true_page,
-        encoding = 'utf-8',
-        request = request)
+        return HtmlResponse(request.url,body = true_page,encoding = 'utf-8',request = request,)
 
 def close_driver():
     driver.close()

@@ -1,8 +1,8 @@
 import scrapy
 from findtrip.items import FindtripItem
 
-class ctripSpider(scrapy.Spider):
-    name = "ctrip"
+class QuaSpider(scrapy.Spider):
+    name = "Qua"
     start_urls = [
         "http://www.qua.com/flights/PEK-XMN/2016-05-12?m=CNY&from=flight_home"
     ]

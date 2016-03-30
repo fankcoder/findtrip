@@ -17,15 +17,23 @@ NEWSPIDER_MODULE = 'findtrip.spiders'
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'findtrip.middleware.SeleniumMiddleware': 543,
+    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,  
+    'findtrip.useragent.RandomUserAgentMiddleware' :400,
+    'findtrip.middleware.SeleniumMiddleware': 543
 }
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'findtrip.pipelines.CtripPipeline': 300,
+    'findtrip.pipelines.MongoDBPipeline': 300,
 }
 
+MONGODB_HOST = 'localhost' # Change in prod
+MONGODB_PORT = 27017 # Change in prod
+MONGODB_DATABASE = "findtrip" # Change in prod
+MONGODB_COLLECTION = "qua"
+MONGODB_USERNAME = "" # Change in prod
+MONGODB_PASSWORD = "" # Change in prod
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'findtrip (+http://www.yourdomain.com)'
 
@@ -41,16 +49,18 @@ ITEM_PIPELINES = {
 #CONCURRENT_REQUESTS_PER_IP=16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED=False
+COOKIES_ENABLED=False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+   'Accept-Language': 'en-US,en;q=0.5',
+   'Accept-Encoding':"gzip, deflate",
+}
+
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
