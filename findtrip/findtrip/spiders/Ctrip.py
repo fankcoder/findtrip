@@ -20,7 +20,8 @@ def findTrip():
     dcap["phantomjs.page.settings.resourceTimeout"] = 15 
     dcap["phantomjs.page.settings.loadImages"] = False
     dcap["phantomjs.page.settings.userAgent"] = choice(ua_list)
-    driver = webdriver.PhantomJS(executable_path=u'/home/icgoo/pywork/spider/phantomjs',desired_capabilities=dcap)
+    #driver = webdriver.PhantomJS(executable_path=u'/home/icgoo/pywork/spider/phantomjs',desired_capabilities=dcap)
+    driver = webdriver.PhantomJS(executable_path=u'/home/fank/pywork/spider/phantomjs',desired_capabilities=dcap)
 
     driver.get(url)
     driver.implicitly_wait(3)
@@ -30,10 +31,33 @@ def findTrip():
     
     fligint_div = "//div[@id='J_flightlist2']/div"
     items = html.xpath(fligint_div)
+    detail = []
     for index,item in enumerate(items):
-        company = html.xpath(fligint_div+'['+str(index+1)+']'+"//tr//div[@class='info-flight J_flight_no']")
-        print company
+        flight_tr = fligint_div+'['+str(index+1)+']'+'//tr'
+        istrain = html.xpath(flight_tr + "//div[@class='train_flight_tit']")
+        print istrain
+        if istrain:
+            pass # is train add
+        else:
+            company = html.xpath(flight_tr + "//div[@class='info-flight J_flight_no']//text()")
+            flight_time_from = html.xpath(flight_tr + "//td[@class='right']/div[1]//text()")
+            flight_time_to = html.xpath(flight_tr + "//td[@class='left']/div[1]//text()")
+            flight_time = [flight_time_from,flight_time_to]
+            airports_from =  html.xpath(flight_tr + "//td[@class='right']/div[2]//text()")
+            airports_to = html.xpath(flight_tr + "//td[@class='left']/div[2]//text()")
+            airports = [airports_from,airports_to]
+            price = html.xpath(flight_tr + "[1]//td[@class='price middle ']/span//text()")
 
+        detail.append(
+                dict(
+                    company=company,
+                    flight_time=flight_time,
+                    airports=airports,
+                    passtime=passtime,
+                    price=price
+                    ))
+    driver.close()
+    return detail
 
 if __name__ == '__main__':
     findTrip()
