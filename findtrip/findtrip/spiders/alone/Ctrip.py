@@ -21,7 +21,8 @@ def findTrip():
     dcap["phantomjs.page.settings.loadImages"] = False
     dcap["phantomjs.page.settings.userAgent"] = choice(ua_list)
     #driver = webdriver.PhantomJS(executable_path=u'/home/icgoo/pywork/spider/phantomjs',desired_capabilities=dcap)
-    driver = webdriver.PhantomJS(executable_path=u'/home/fank/pywork/spider/phantomjs',desired_capabilities=dcap)
+    #driver = webdriver.PhantomJS(executable_path=u'/home/fank/pywork/spider/phantomjs',desired_capabilities=dcap)
+    driver = webdriver.Firefox()
 
     driver.get(url)
     driver.implicitly_wait(3)
@@ -35,7 +36,6 @@ def findTrip():
     for index,item in enumerate(items):
         flight_tr = fligint_div+'['+str(index+1)+']'+'//tr'
         istrain = html.xpath(flight_tr + "//div[@class='train_flight_tit']")
-        print istrain
         if istrain:
             pass # is train add
         else:
@@ -53,9 +53,9 @@ def findTrip():
                     company=company,
                     flight_time=flight_time,
                     airports=airports,
-                    passtime=passtime,
                     price=price
                     ))
+    print detail
     driver.close()
     return detail
 

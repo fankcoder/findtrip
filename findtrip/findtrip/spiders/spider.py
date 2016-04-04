@@ -6,13 +6,12 @@ class QuaSpider(scrapy.Spider):
     start_urls = [
         "http://www.qua.com/flights/PEK-XMN/2016-05-12?m=CNY&from=flight_home"
     ]
-        
-    def parse(self, response):
 
+    def parse(self, response):
         sel = scrapy.Selector(response)
-        
         dataList = sel.xpath("//div[@class='m-fly-item s-oneway']")
         items = []
+
         for index,each in enumerate(dataList):
             flight_each = "//div[@id='list-box']/div["+str(index+1)+"]"
             detail_span = "//div[@class='fl-detail-nav']/ul/li[1]/span[@class='nav-label']"
@@ -25,6 +24,7 @@ class QuaSpider(scrapy.Spider):
             price = sel.xpath(flight_each + "//div[@class='fl-price-box']//em//text()").extract()
 
             item = FindtripItem()
+            item['site'] = 'Qua'
             item['company'] = company
             item['flight_time'] = flight_time
             item['airports'] = airports
