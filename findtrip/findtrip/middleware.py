@@ -21,8 +21,8 @@ dcap["phantomjs.page.settings.loadImages"] = False
 dcap["phantomjs.page.settings.userAgent"] = choice(ua_list)
 #driver = webdriver.PhantomJS(executable_path='/home/icgoo/pywork/spider/phantomjs',desired_capabilities=dcap)
 #driver = webdriver.PhantomJS(executable_path=u'/home/fank/pywork/spider/phantomjs',desired_capabilities=dcap)
-#driver = webdriver.PhantomJS()
-driver = webdriver.Firefox()
+driver = webdriver.PhantomJS()
+#driver = webdriver.Firefox()
 
 class SeleniumMiddleware(object): 
     def process_request(self, request, spider):

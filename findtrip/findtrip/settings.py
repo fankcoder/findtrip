@@ -25,7 +25,6 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-'''
 ITEM_PIPELINES = {
     'findtrip.pipelines.MongoDBPipeline': 300,
 }
@@ -36,7 +35,7 @@ MONGODB_DATABASE = "findtrip" # Change in prod
 MONGODB_COLLECTION = "qua"
 MONGODB_USERNAME = "" # Change in prod
 MONGODB_PASSWORD = "" # Change in prod
-'''
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'findtrip (+http://www.yourdomain.com)'
 
