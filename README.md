@@ -13,7 +13,7 @@ Findtrip is a webspider for flight tickets by Scrapy,which contains two major ch
 git clone https://github.com/fankcoder/findtrip.git
 ```
 
-所需运行环境,请看 django-todolist/doc/requirements.txt
+所需运行环境,请看 ./requirements.txt
 
 本程序使用selenium+ phantomjs模拟浏览器行为获取数据，phantomjs浏览器下载地址（当然使用Firefox也可以，不过打开速度就会慢很多）
 
