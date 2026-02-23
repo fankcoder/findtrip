@@ -1,5 +1,5 @@
 # 作者声明：此项目不在维护
-#### 本项目代码及相关库已经是很旧的版本了，不再推荐使用此项目用来学习爬虫
+#### 本项目代码及相关库均基于python2，已经是很旧很旧的版本了，python3版本的携程爬虫请移步[Ctrip-Crawler](https://github.com/Suysker/Ctrip-Crawler)
 
 ----
 
