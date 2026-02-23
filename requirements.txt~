@@ -1,5 +1,0 @@
-scrapy==0.25.0
-requests==2.4.3
-mongodb
-selenium==2.52.0
-phantomjs==2.1.1
